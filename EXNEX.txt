@@ -15,7 +15,7 @@ model{
 		gamma2[k] ~ dnorm(mu.g2, tau.g2)
 		
 		mix.theta[1, k] <- mu.theta + re.theta[k]
-		re.theta[k] ~ dnorm(0, prec.sig)I(0.001,)
+		re.theta[k] ~ dnorm(0, prec.re)	
 
 		mix.theta[2, k]	~ dnorm(nex.theta, nex.prec)
 
@@ -42,6 +42,8 @@ model{
 		mu.theta ~ dnorm (Prior.mu.theta[1], prec.mu.theta)
 		prec.mu.theta <- pow(Prior.mu.theta[2], -2)
 		
+		prec.re <- pow(tau, -2)
+		tau ~ dnorm(0, prec.sig)I(0.001,)
 		prec.sig <- pow(Prior.tau.HN, -2)
 
 		nex.prec <- pow(nex.sig, -2)
