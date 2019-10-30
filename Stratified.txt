@@ -19,4 +19,5 @@ model{
 
 		pCat[1] <- 1 - step(sig.theta[1] - theta)
 		pCat[2] <- 1 - step(sig.theta[2] - theta)
+		
 }
