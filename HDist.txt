@@ -26,8 +26,8 @@ model{
 			nu0[q,k] <- lSlab + (uSlab - lSlab)*1/wss[q,k]*D01[q,k]
 			nu[q,k] <- nu0[q,k]*step(wss[q,k] - nu0[q,k]) + spike*step(nu0[q,k] - wss[q,k])
 
-				pred.mu.theta[q,k] <- theta[k] + cms.mu[q,k]*1/nu[q,k]*(1-equals(q,k))
-				cms.mu[q,k] ~ dnorm(0, 1)
+			pred.mu.theta[q,k] <- theta[k] + cms.mu[q,k]*1/nu[q,k]*(1-equals(q,k))
+			cms.mu[q,k] ~ dnorm(0, 1)
 		
 		}
 
