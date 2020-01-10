@@ -28,7 +28,7 @@ y.true = true.g0 + true.g1*z1.true + true.g2*z2.true + c(true.theta[1]*true.trt[
                                 true.theta[3]*true.trt[21:34], true.theta[4]*true.trt[35:50],
                                 true.theta[5]*true.trt[51:70], true.theta[6]*true.trt[71:90]) + rnorm(Nobs, mean = 0, sd = 0.4)
 
-#------------------------------- proposed approach -------------------------------#
+#------------------------------- Proposed approach -------------------------------#
 y = array(0, dim = c(2, Nobs))
 y[1,] = y.true
 y[2,] = y.true
@@ -90,7 +90,7 @@ MCMCSim1 <- bugs(data, inits, parameters, "HDist.txt", codaPkg = F,
                 n.chains = 2, n.burnin = 3000, n.iter = 13000)
 
 
-#------------------------------- standard HM -------------------------------#
+#------------------------------- Standard HM -------------------------------#
 y = y.true
 z1 = z1.true
 z2 = z2.true
