@@ -1,0 +1,29 @@
+model{
+
+## likelihood/sampling model for the basket trials:
+	for(i in 1:Nobs){
+		y[i] ~ dnorm(m.y[i], tau.y)
+		m.y[i] <- gamma0 + z1[i]*gamma1 + z2[i]*gamma2 + Trt[i]*theta
+	}
+	
+		# priors
+		tau.y ~ dgamma(0.5, 0.005)	
+
+
+		gamma0 ~ dnorm(Prior.g0[1], prec.g0)
+		prec.g0 <- pow(Prior.g0[2], -2)
+
+		gamma1 ~ dnorm(Prior.g1[1], prec.g1)
+		gamma2 ~ dnorm(Prior.g2[1], prec.g2)
+		prec.g1 <- pow(Prior.g1[2], -2)
+		prec.g2 <- pow(Prior.g2[2], -2)	
+
+
+		theta ~ dnorm(Prior.theta, prec.theta)
+		prec.theta <- pow(Prior.sd.theta, -2)
+
+
+		# prediction of the interval probability 
+		pCat[1] <- 1 - step(cutoff.theta[1] - theta)
+		pCat[2] <- 1 - step(cutoff.theta[2] - theta)	
+}

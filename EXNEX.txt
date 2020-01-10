@@ -1,0 +1,73 @@
+model{
+
+## likelihood/sampling model for the basket trials:
+	for(i in 1:Nobs){
+		y[i] ~ dnorm(m.y[i], tau.y)
+		m.y[i] <- gamma0[Module[i]] + z1[i]*gamma1[Module[i]] + z2[i]*gamma2[Module[i]] + Trt[i]*theta[Module[i]]
+	}
+
+
+	for(k in 1:kMod){
+		gamma0[k] <- mu.g0 + re.gamma0[k]
+		gamma1[k] <- mu.g1 + re.gamma1[k]
+		gamma2[k] <- mu.g2 + re.gamma2[k]
+
+		re.gamma0[k] ~ dnorm(0, prec.re.g0)
+		re.gamma1[k] ~ dnorm(0, prec.re.g1)
+		re.gamma2[k] ~ dnorm(0, prec.re.g2)
+		
+
+		# pick theta
+		theta[k] <- mix.theta[exch.ind[k], k]
+		
+		mix.theta[1, k] <- mu.theta + re.theta[k]
+		re.theta[k] ~ dnorm(0, prec.re.t)	
+
+		mix.theta[2, k]	~ dnorm(nex.theta, nex.prec)
+
+		exch.ind[k] ~ dcat(pMix[1:2])
+			for(j in 1:2){
+				each[k, j] <- equals(exch.ind[k], j)		
+			}
+
+
+		# prediction of the interval probability 
+		pCat[k, 1] <- 1 - step(cutoff.theta[1] - theta[k])
+		pCat[k, 2] <- 1 - step(cutoff.theta[2] - theta[k])
+
+	}
+
+		# priors
+		tau.y ~ dgamma(0.5, 0.005)
+
+		mu.g0 ~ dnorm(Prior.g0[1], prec.g0)
+		prec.g0 <- pow(Prior.g0[2], -2)
+		mu.g1 ~ dnorm(Prior.g1[1], prec.g1)
+		prec.g1 <- pow(Prior.g1[2], -2)
+		mu.g2 ~ dnorm(Prior.g2[1], prec.g2)
+		prec.g2 <- pow(Prior.g2[2], -2)
+
+		
+		prec.re.g0 <- pow(sigma0, -2)
+		sigma0 ~ dnorm(0, prec.sig0)I(0.001,)
+		prec.sig0 <- pow(Prior.sig.HN[1], -2)
+
+		prec.re.g1 <- pow(sigma1, -2)
+		sigma1 ~ dnorm(0, prec.sig1)I(0.001,)
+		prec.sig1 <- pow(Prior.sig.HN[2], -2)
+
+		prec.re.g2 <- pow(sigma2, -2)
+		sigma2 ~ dnorm(0, prec.sig2)I(0.001,)
+		prec.sig2 <- pow(Prior.sig.HN[3], -2)
+
+
+		mu.theta ~ dnorm(Prior.mu.theta[1], prec.mu.theta)
+		prec.mu.theta <- pow(Prior.mu.theta[2], -2)
+		
+		prec.re.t <- pow(tau, -2)
+		tau ~ dnorm(0, prec.tau)I(0.001,)
+		prec.tau <- pow(Prior.tau.HN, -2)
+
+		nex.prec <- pow(nex.sig, -2)
+}
+
