@@ -1,5 +1,3 @@
-setwd("~/Dropbox/EfficientTrials_James/BasketTrials/Code_21Nov2019/Bayesian-analysis-models-master_final/BAMod_final")
-
 library(R2OpenBUGS)
 
 set.seed(123)
