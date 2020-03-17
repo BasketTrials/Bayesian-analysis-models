@@ -82,8 +82,8 @@ parameters <- c("theta", "pCat")
 
 # parameters <- c("pCat")    
 # if interested in to computing the interval probabilitis for making Go decision, according to
-# Criterion 1: Pr(theta > 0.25) > 90%, or
-# Criterion 2: Pr(theta > 0.50) > 90% 
+# Criterion 1: Pr(theta > 0.25) > 97.5%, or
+# Criterion 2: Pr(theta > 0.30) > 97.5% 
 
 MCMCSim1 <- bugs(data, inits, parameters, "HDist.txt", codaPkg = F,
                 n.chains = 2, n.burnin = 3000, n.iter = 13000)
