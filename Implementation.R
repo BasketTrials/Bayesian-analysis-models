@@ -88,6 +88,7 @@ parameters <- c("theta", "pCat")
 MCMCSim1 <- bugs(data, inits, parameters, "HDist.txt", codaPkg = F,
                 n.chains = 2, n.burnin = 3000, n.iter = 13000)
 
+MCMCSim1$summary
 
 #------------------------------- Standard HM -------------------------------#
 y = y.true
@@ -130,6 +131,7 @@ parameters <- c("theta", "pCat")
 MCMCSim2 <- bugs(data, inits, parameters, "StandardHM.txt", codaPkg = F, 
                 n.chains = 2, n.burnin = 3000, n.iter = 13000)
 
+MCMCSim2$summary
 
 #------------------------------- EXNEX -------------------------------#
 y = y.true
@@ -188,6 +190,7 @@ parameters <- c("theta", "pCat")
 MCMCSim3 <- bugs(data, inits, parameters, "EXNEX.txt", codaPkg = F,
                  n.chains = 2, n.burnin = 3000, n.iter = 13000)
 
+MCMCSim3$summary
 
 #------------------------------- Stratified -------------------------------#
 Prior.theta = 0
@@ -235,3 +238,4 @@ for(k in 1:kMod){
 
 }
 
+MCMCSim4$summary
