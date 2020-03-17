@@ -19,6 +19,11 @@ model{
 			re.gamma2[j, k] ~ dnorm(0, prec.re.g2)
 		}
 		
+			mu.g0[k] ~ dnorm(Prior.g0[1], prec.g0)
+			mu.g1[k] ~ dnorm(Prior.g1[1], prec.g1)
+			mu.g2[k] ~ dnorm(Prior.g2[1], prec.g2)
+			
+		
 		theta[1, k] <- Prior.theta[k] + Prior.sd.theta[k]*theta01[k]
 		theta01[k] ~ dnorm(0, 1)
 
@@ -58,13 +63,10 @@ model{
 		tau.y[1] ~ dgamma(0.5, 0.005)
 		tau.y[2] ~ dgamma(0.5, 0.005)
 
-		mu.g0 ~ dnorm(Prior.g0[1], prec.g0)
 		prec.g0 <- pow(Prior.g0[2], -2)
-		mu.g1 ~ dnorm(Prior.g1[1], prec.g1)
 		prec.g1 <- pow(Prior.g1[2], -2)
-		mu.g2 ~ dnorm(Prior.g2[1], prec.g2)
 		prec.g2 <- pow(Prior.g2[2], -2)
-
+		
 		
 		prec.re.g0 <- pow(sigma0, -2)
 		sigma0 ~ dnorm(0, prec.sig0)I(0.001,)
