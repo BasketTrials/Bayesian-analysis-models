@@ -56,7 +56,7 @@ spike = 100
 Prior.theta = rep(0, 6)
 Prior.sd.theta = rep(10, 6)
 
-cutoff.theta = c(0.25, 0.50)
+cutoff.theta = c(0.25, 0.30)
 
 
 Prior.g0 = c(0, 5)
@@ -98,7 +98,7 @@ Trt = true.trt
 Prior.mu.theta = c(0, 10)
 Prior.tau.HN = 0.125
 
-cutoff.theta = c(0.25, 0.50)
+cutoff.theta = c(0.25, 0.30)
 
 
 Prior.g0 = c(0, 5)
@@ -146,7 +146,7 @@ nex.sig = 10
 pMix = c(0.5, 0.5)
 
 
-cutoff.theta = c(0.25, 0.50)
+cutoff.theta = c(0.25, 0.30)
 
 
 Prior.g0 = c(0, 5)
@@ -193,7 +193,7 @@ MCMCSim3 <- bugs(data, inits, parameters, "EXNEX.txt", codaPkg = F,
 Prior.theta = 0
 Prior.sd.theta = 10
 
-cutoff.theta = c(0.25, 0.50)
+cutoff.theta = c(0.25, 0.30)
 
 Prior.g0 = c(0, 5)
 Prior.g1 = c(0, 5)
