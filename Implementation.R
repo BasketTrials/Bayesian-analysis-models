@@ -2,26 +2,28 @@ library(R2OpenBUGS)
 
 set.seed(123)
 
-theta.alt = c(0.59, 1.17, 1.02, 0.95, 0.13, 0.75)
-
-true.g0 = 5
-true.g1 = 3
-true.g2 = 1.3
-
-kMod = 6
-Nobs = 90
-
-z1.true = rnorm(Nobs, mean = 6, sd = 0.2)
-z2.true = rnorm(Nobs, mean = 4, sd = 0.2)
-
 
 # unequal size
 Module = c(rep(1, 10), rep(2, 10), rep(3, 14), rep(4, 16), rep(5, 20), rep(6, 20))
 true.trt = c(rep(1, 5), rep(0, 5), rep(1, 5), rep(0, 5), rep(1, 7), rep(0, 7), 
              rep(1, 8), rep(0, 8), rep(1, 10), rep(0, 10), rep(1, 10), rep(0, 10))
 
+kMod = length(unique(Module))
+Nobs = length(true.trt)
+
+z1.true = rnorm(Nobs, mean = 6, sd = 0.2)
+z2.true = rnorm(Nobs, mean = 4, sd = 0.2)
+
+
+theta.alt = c(0.59, 1.17, 1.02, 0.95, 0.13, 0.75)
 
 true.theta = theta.alt
+
+
+true.g0 = 5
+true.g1 = 3
+true.g2 = 1.3
+
 
 
 y.true = true.g0 + true.g1*z1.true + true.g2*z2.true + c(true.theta[1]*true.trt[1:10], true.theta[2]*true.trt[11:20],
