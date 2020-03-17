@@ -80,7 +80,7 @@ inits <- function(){
 }
 
 
-parameters <- c("theta", "pCat")
+parameters <- c("theta.star", "pCat")
 
 # parameters <- c("pCat")    
 # if interested in to computing the interval probabilitis for making Go decision, according to
