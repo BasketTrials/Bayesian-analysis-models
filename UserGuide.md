@@ -1,9 +1,9 @@
 # Bayesian-analysis-models
 
-OpenBUGS code together with R functions to implement Bayesian inferences for basket trials, with possibility of borrowing information across patient subgroups.
+The OpenBUGS code together with R functions to implement Bayesian inferences for basket trials, with possibility of borrowing information across patient subgroups.
 
 Files contained in this repository can be used to reproduce the numerical results reported in the paper entitled
-# H. Zheng and J.M.S. Wason. (2019). Borrowing of information across patient subgroups in a basket trial based on distributional discrepancy. *A submitted paper*.
+# H. Zheng and J.M.S. Wason. (2019+). Borrowing of information across patient subgroups in a basket trial based on distributional discrepancy. *A submitted paper*.
 
 The file "HDist.txt" is the model specification for the proposed methodology to be implemented through OpenBUGS, while the files "StandardHM.txt", "EXNEX.txt" and "Stratified.txt" are those for alternative Bayesian models that may be used for analysing basket trial data. In particular, "StandardHM.txt" is the standard hierarchical model which assumes the subgroup-specific parameters to be fully exchangeable, "EXNEX.txt" is the robust extension proposed by Neuenschwander et al. (2016), and "Stratified.txt" is the approach of no borrowing. 
 
