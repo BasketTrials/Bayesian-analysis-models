@@ -4,19 +4,20 @@ model{
 	for(j in 1:2){
 		for(i in 1:Nobs){
 			y[j, i] ~ dnorm(m.y[j, i], tau.y[j])
-			m.y[j, i] <- gamma0[Module[i]] + z1[j, i]*gamma1[Module[i]] + z2[j, i]*gamma2[Module[i]] + Trt[j, i]*theta[j, Module[i]]
+			m.y[j, i] <- gamma0[j, Module[i]] + z1[j, i]*gamma1[j, Module[i]] + z2[j, i]*gamma2[j, Module[i]] + Trt[j, i]*theta[j, Module[i]]
 		}
 	}
 
 	for(k in 1:kMod){
-		gamma0[k] <- mu.g0 + re.gamma0[k]
-		gamma1[k] <- mu.g1 + re.gamma1[k]
-		gamma2[k] <- mu.g2 + re.gamma2[k]
-
-		re.gamma0[k] ~ dnorm(0, prec.re.g0)
-		re.gamma1[k] ~ dnorm(0, prec.re.g1)
-		re.gamma2[k] ~ dnorm(0, prec.re.g2)
-
+		for(j in 1:2){
+			gamma0[j, k] <- mu.g0 + re.gamma0[j, k]
+			gamma1[j, k] <- mu.g1 + re.gamma1[j, k]
+			gamma2[j, k] <- mu.g2 + re.gamma2[j, k]
+		
+			re.gamma0[j, k] ~ dnorm(0, prec.re.g0)
+			re.gamma1[j, k] ~ dnorm(0, prec.re.g1)
+			re.gamma2[j, k] ~ dnorm(0, prec.re.g2)
+		}
 		
 		theta[1, k] <- Prior.theta[k] + Prior.sd.theta[k]*theta01[k]
 		theta01[k] ~ dnorm(0, 1)
