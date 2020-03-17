@@ -53,8 +53,8 @@ uSlab = 1
 
 spike = 100
 
-Prior.theta = rep(0, 6)
-Prior.sd.theta = rep(10, 6)
+Prior.theta = rep(0, kMod)
+Prior.sd.theta = rep(10, kMod)
 
 cutoff.theta = c(0.25, 0.30)
 
