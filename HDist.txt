@@ -3,7 +3,7 @@ model{
 ## likelihood/sampling model for the basket trials:
 	for(j in 1:2){
 		for(i in 1:Nobs){
-			y[j, i] ~ dnorm(m.y[j, i], tau.y)
+			y[j, i] ~ dnorm(m.y[j, i], tau.y[j])
 			m.y[j, i] <- gamma0[Module[i]] + z1[j, i]*gamma1[Module[i]] + z2[j, i]*gamma2[Module[i]] + Trt[j, i]*theta[j, Module[i]]
 		}
 	}
@@ -54,8 +54,8 @@ model{
 	}
 
 		# priors
-		tau.y ~ dgamma(0.5, 0.005)
-
+		tau.y[1] ~ dgamma(0.5, 0.005)
+		tau.y[2] ~ dgamma(0.5, 0.005)
 
 		mu.g0 ~ dnorm(Prior.g0[1], prec.g0)
 		prec.g0 <- pow(Prior.g0[2], -2)
