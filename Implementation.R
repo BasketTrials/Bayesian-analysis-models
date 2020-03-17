@@ -45,7 +45,7 @@ Trt = array(0, dim = c(2, Nobs))
 Trt[1, ] = true.trt
 Trt[2, ] = true.trt
 
-s0 = 0.1
+s0 = 0.15
 
 
 lSlab = 0.01
