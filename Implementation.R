@@ -47,10 +47,9 @@ Trt[2, ] = true.trt
 
 s0 = 0.1
 
-# lSlab = 0.01
-lSlab = 0.1
-# uSlab = 0.5
-uSlab = 0.25
+
+lSlab = 0.01
+uSlab = 1
 
 spike = 100
 
