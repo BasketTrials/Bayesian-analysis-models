@@ -56,5 +56,6 @@ model{
 		prec.re.t <- pow(tau, -2)
 		tau ~ dnorm(0, prec.tau)I(0.001,)
 		prec.tau <- pow(Prior.tau.HN, -2)
+		
 
 }
