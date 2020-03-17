@@ -8,7 +8,7 @@ model{
 	
 		# priors
 		tau.y ~ dgamma(0.5, 0.005)	
-
+		
 
 		gamma0 ~ dnorm(Prior.g0[1], prec.g0)
 		prec.g0 <- pow(Prior.g0[2], -2)
@@ -26,4 +26,5 @@ model{
 		# prediction of the interval probability 
 		pCat[1] <- 1 - step(cutoff.theta[1] - theta)
 		pCat[2] <- 1 - step(cutoff.theta[2] - theta)	
+		
 }
