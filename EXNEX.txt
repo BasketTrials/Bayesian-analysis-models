@@ -69,5 +69,6 @@ model{
 		prec.tau <- pow(Prior.tau.HN, -2)
 
 		nex.prec <- pow(nex.sig, -2)
+		
 }
 
