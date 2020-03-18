@@ -1,0 +1,77 @@
+model{
+
+	for(j in 1:2){
+			for(i in 1:Nobs){
+				y[j, i] ~ dnorm(m.y[j, i], tau.y[j])
+				m.y[j, i] <- gamma0[j, Module[i]] + z1[j, i]*gamma1[j, Module[i]] + z2[j, i]*gamma2[j, Module[i]] + Trt[j, i]*theta[j, Module[i]]
+			}
+			
+			for(k in 1:kMod){
+			gamma0[j, k] <- mu.g0[j] + re.gamma0[j, k]
+			gamma1[j, k] <- mu.g1[j] + re.gamma1[j, k]
+			gamma2[j, k] <- mu.g2[j] + re.gamma2[j, k]
+			
+			re.gamma0[j, k] ~ dnorm(0, prec.re.g0[j])
+			re.gamma1[j, k] ~ dnorm(0, prec.re.g1[j])
+			re.gamma2[j, k] ~ dnorm(0, prec.re.g2[j])
+			}
+			
+		tau.y[j] ~ dgamma(0.5, 0.005)
+			
+		mu.g0[j] ~ dnorm(Prior.g0[1], prec.g0[j])
+		prec.g0[j] <- pow(Prior.g0[2], -2)
+			
+		mu.g1[j] ~ dnorm(Prior.g1[1], prec.g1[j])
+		prec.g1[j] <- pow(Prior.g1[2], -2)
+			
+		mu.g2[j] ~ dnorm(Prior.g2[1], prec.g2[j])
+		prec.g2[j] <- pow(Prior.g2[2], -2)
+			
+		prec.re.g0[j] <- pow(sigma0[j], -2)
+		sigma0[j] ~ dnorm(0, prec.sig0[j])I(0.001, )
+		prec.sig0[j] <- pow(Prior.sig.HN[1], -2)
+			
+		prec.re.g1[j] <- pow(sigma1[j], -2)
+		sigma1[j] ~ dnorm(0, prec.sig1[j])I(0.001, )
+		prec.sig1[j] <- pow(Prior.sig.HN[2], -2)
+			
+		prec.re.g2[j] <- pow(sigma2[j], -2)
+		sigma2[j] ~ dnorm(0, prec.sig2[j])I(0.001, )
+		prec.sig2[j] <- pow(Prior.sig.HN[3], -2)
+	}
+	
+		
+		for(k in 1:kMod){
+			theta[1, k] <- Prior.theta[k] + Prior.sd.theta[k]*theta01[k]	
+			theta01[k] ~ dnorm(0, 1)	
+			
+			for(q in 1:kMod){
+				phiH[q, k] <- sqrt(1/2*pow(sqrt(abs(theta[1, k])) - sqrt(abs(theta[1, q])), 2))
+				norm.phiH[q, k] <- exp(-phiH[q, k]/s0)
+				
+				wss[q, k] <- phiH[q, k] - equals(q, k)
+				
+				D01[q, k] ~ dunif(0, 1)
+				nu0[q, k] <- lSlab + (uSlab - lSlab)*1/wss[q, k]*D01[q, k]
+				nu[q, k] <- nu0[q, k]*step(wss[q, k] - nu0[q, k]) + spike*step(nu0[q, k] - wss[q, k])
+				
+				pred.mu.theta[q, k] <- theta[1, k] + cms.mu[q, k]*1/nu[q, k]*(1 - equals(q, k))
+				cms.mu[q, k] ~ dnorm(0, 1)
+				}	
+				
+				sum.norm.phiH[k] <- sum(norm.phiH[k, ]) - 1
+				
+				for(q in 1:kMod){
+					p0[q, k] <- norm.phiH[q, k]/sum.norm.phiH[q]
+					V[q, k] <- 1 - equals(q, k)
+					pmix[q, k] <- inprod(p0[q, k], V[q, k])
+					r.theta.star[q, k] <- inprod(pmix[q, k], pred.mu.theta[q, k])
+				}
+				
+			theta[2, k] <- sum(r.theta.star[k, ])
+			
+			# Posterior prediction 
+			pCat[k, 1] <- 1 - step(cutoff.theta[1] - theta[2, k])
+			pCat[k, 2] <- 1 - step(cutoff.theta[2] - theta[2, k])
+			}	
+}
