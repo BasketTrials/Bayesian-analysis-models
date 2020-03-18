@@ -2,7 +2,7 @@ model{
 
 	for(j in 1:2){
 			for(i in 1:Nobs){
-				y[j, i] ~ dnorm(m.y[j, i], tau.y[j])
+				y[j, i] ~ dnorm(m.y[j, i], tau.y[j, Module[i]])
 				m.y[j, i] <- gamma0[j, Module[i]] + z1[j, i]*gamma1[j, Module[i]] + z2[j, i]*gamma2[j, Module[i]] + Trt[j, i]*theta[j, Module[i]]
 			}
 			
@@ -14,9 +14,10 @@ model{
 			re.gamma0[j, k] ~ dnorm(0, prec.re.g0[j])
 			re.gamma1[j, k] ~ dnorm(0, prec.re.g1[j])
 			re.gamma2[j, k] ~ dnorm(0, prec.re.g2[j])
-			}
 			
-		tau.y[j] ~ dgamma(0.5, 0.005)
+			tau.y[j, k] ~ dgamma(0.5, 0.005)
+			}
+
 			
 		mu.g0[j] ~ dnorm(Prior.g0[1], prec.g0[j])
 		prec.g0[j] <- pow(Prior.g0[2], -2)
