@@ -10,9 +10,9 @@ model{
 
 	for(k in 1:kMod){
 		for(j in 1:2){
-			gamma0[j, k] <- mu.g0 + re.gamma0[j, k]
-			gamma1[j, k] <- mu.g1 + re.gamma1[j, k]
-			gamma2[j, k] <- mu.g2 + re.gamma2[j, k]
+			gamma0[j, k] <- mu.g0[k] + re.gamma0[j, k]
+			gamma1[j, k] <- mu.g1[k] + re.gamma1[j, k]
+			gamma2[j, k] <- mu.g2[k] + re.gamma2[j, k]
 		
 			re.gamma0[j, k] ~ dnorm(0, prec.re.g0)
 			re.gamma1[j, k] ~ dnorm(0, prec.re.g1)
