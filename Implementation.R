@@ -74,7 +74,7 @@ data <- list("kMod", "Nobs", "y", "Module", "z1", "z2", "Trt", "Prior.theta", "P
 
 inits <- function(){
   list(
-    tau.y = 10,
+    tau.y = rep(10, kMod),
     sigma0 = 1, sigma1 = 1, sigma2 = 1
   )
 }
@@ -176,7 +176,7 @@ data <- list("kMod", "Nobs", "y", "Module", "z1", "z2", "Trt", "cutoff.theta",
 
 inits <- function(){
   list(
-    tau.y = 10, 
+    tau.y = rep(10, kMod), 
     sigma0 = 1, sigma1 = 1, sigma2 = 1
   )
 }
