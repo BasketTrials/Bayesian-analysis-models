@@ -90,6 +90,7 @@ parameters <- c("theta", "pCat")
 MCMCSim1 <- bugs(data, inits, parameters, "HDist.txt", codaPkg = F,
                 n.chains = 2, n.burnin = 3000, n.iter = 13000)
 
+# theta[2, ] summarise the posteriors for \theta_k, with complementary subtrial data incorporated
 MCMCSim1$summary
 
 #------------------------------- Standard HM -------------------------------#
