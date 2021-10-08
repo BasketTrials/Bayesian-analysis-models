@@ -83,7 +83,7 @@ inits <- function(){
 parameters <- c("theta", "pCat")
 
 # parameters <- c("pCat")    
-# if interested in to computing the interval probabilitis for making Go decision, according to
+# if interested in varying the interval probabilities for making Go decision, consider:
 # Criterion 1: Pr(theta > 0.25) > 97.5%, or
 # Criterion 2: Pr(theta > 0.30) > 97.5% 
 
